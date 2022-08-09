@@ -9,10 +9,9 @@ require("dotenv").config();
 // const { default: returnDir } = require("./Utilities/returnDir");
 //MongoDB Config
 // const mongoose = require("mongoose");
+// const dbURI = process.env.MONGODB_URI;
 
-const dbURI = process.env.MONGODB_URI;
-
-//Server Initiation
+//Server Socketio Initiation
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
@@ -21,12 +20,21 @@ const io = require("socket.io")(server, {
   },
 });
 
-//import schemas
-const UserSchema = require("./Models/UserData.js");
-console.log(dbURI);
+//Middleware set cors
+app.use(
+    cors({
+      origin: "*",
+      methods: ["GET", "POST","DELETE"],
+      credentials: true,
+    })
+  );
 
-// mongoose.connect(`${dbURI}`, () => console.log("Conntected to MongoDB"));
+//Endpoint baseroute
+app.get("/",async (req,res)=>{
+    res.json("Server for Reccebot")
+})
 
+//Server RESTAPI Initiation
 server.listen(process.env.PORT || PORT, () => {
   console.log("Listening on port", process.env.PORT || PORT);
 });
