@@ -47,4 +47,4 @@ app.post("/auth", async (req, res) => {
 
 //Server Initiation
 
-server.listen(PORT || process.env.PORT, () => console.log("connected to port"));
+server.listen(process.env.PORT || PORT , () => console.log("connected to port"));

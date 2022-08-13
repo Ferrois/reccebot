@@ -3,12 +3,12 @@ import useLocalStorage from "../hooks/useLocalStorage";
 
 export const GlobalContext = createContext(null);
 
-interface ContextType {
-  sessionData: any;
-  setSessionData: () => void;
-  isGuest: boolean;
-  setIsGuest: () => void;
-}
+// interface ContextType {
+//   sessionData: any;
+//   setSessionData: () => void;
+//   isGuest: boolean;
+//   setIsGuest: () => void;
+// }
 
 export default function GlobalProvider(props: any) {
   const [auth, setAuth] = useLocalStorage("auth", { acc: "guest" });
