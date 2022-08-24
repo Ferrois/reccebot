@@ -7,7 +7,6 @@ require("dotenv").config();
 
 
 const server = require("http").createServer(app);
-const io = require("socket.io")(server);
 
 //Helper function
 // const { default: returnDir } = require("./Utilities/returnDir");
