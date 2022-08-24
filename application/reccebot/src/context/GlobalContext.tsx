@@ -12,9 +12,10 @@ export const GlobalContext = createContext(null);
 
 export default function GlobalProvider(props: any) {
   const [auth, setAuth] = useLocalStorage("auth", { acc: "guest" });
+  const passport:Array<any> = [auth,setAuth];
   return (
     // @ts-ignore
-    <GlobalContext.Provider value={{passport :[auth, setAuth]}}>
+    <GlobalContext.Provider value={{passport}}>
       {props.children}
     </GlobalContext.Provider>
   );

@@ -26,6 +26,7 @@ function App() {
         pauseOnFocusLoss
         draggable={true}
         pauseOnHover={false}
+        limit={4}
       />
     </GlobalProvider>
   );

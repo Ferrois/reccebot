@@ -1,5 +1,8 @@
 import React from 'react'
+import CWrap from '../components/Uncategorised/CWrap'
 import Base from '../template/Base'
+//@ts-ignore
+import RadarUI from "./../features/RadarUI";
 
 const meta = {
     title: "Dashboard",
@@ -9,7 +12,10 @@ const meta = {
 export default function Dashboard() {
   return (
     <Base config = {meta}>
-        <div>THis is the dashboard</div>
+        <CWrap>
+          This is the Dashboard
+          <RadarUI/>
+        </CWrap>
     </Base>
   )
 }
