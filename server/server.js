@@ -4,6 +4,7 @@ const cors = require("cors");
 const PORT = 4000;
 const { v4 } = require("uuid");
 require("dotenv").config();
+const {authenticateKey} = require("./utils/auth");
 
 
 const server = require("http").createServer(app);
@@ -52,11 +53,12 @@ var wss = new WebSocketServer({server: server})
 console.log("Websocket Server Initiated")
 
 wss.on("connection", (ws) => {
-  var id = setInterval(function() {
+  const id = setInterval(function() {
     ws.send("Hello from the server")
   }, 1000);
 
   console.log("Websocket connection open")
+
 
   ws.on("close", () => {
     console.log("Websocket connection closed")
