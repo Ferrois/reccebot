@@ -4,8 +4,8 @@ const cors = require("cors");
 const PORT = 4000;
 const { v4 } = require("uuid");
 require("dotenv").config();
-const {authenticateKey} = require("./utils/auth");
-
+const { authenticateKey } = require("./utils/auth");
+const { brotliCompressSync } = require("zlib");
 
 const server = require("http").createServer(app);
 
@@ -16,9 +16,9 @@ const server = require("http").createServer(app);
 // const dbURI = process.env.MONGODB_URI;
 
 //Server Socketio Initiation
-var WebSocketServer = require("ws").Server
+var WebSocketServer = require("ws").Server;
 
-app.use(express.static(__dirname + "/"))
+app.use(express.static(__dirname + "/"));
 
 app.use(
   cors({
@@ -28,7 +28,6 @@ app.use(
   })
 );
 // var server = http.createServer(app)
-
 
 //Middleware set cors
 
@@ -42,26 +41,125 @@ app.get("/", async (req, res) => {
 app.post("/auth", async (req, res) => {
   const input = req.body.input || "";
   if (!authenticateKey(input))
-  return res.json({ success: false, message: "Invalid Key" });
+    return res.json({ success: false, message: "Invalid Key" });
   return res.json({ success: true, message: "Valid Key" });
 });
 
 //Server Initiation
 
-server.listen(process.env.PORT || PORT , () => console.log("connected to port"));
-var wss = new WebSocketServer({server: server})
-console.log("Websocket Server Initiated")
+server.listen(process.env.PORT || PORT, () => console.log("connected to port"));
+
+var wss = new WebSocketServer({ server: server });
+console.log("Websocket Server Initiated");
+
+var clients = [];
+
+// rbmovew
+// rbmoves
+// rbmovea
+// rbmoved
+// rbalarm
+// rbradar (toggler)
+
+// rcusd(angle,distance)
+// rcpir
+// rcbtn
+// rcgps(lat,long)
+// rcsnd
+
+function sendToAll(data) {
+  clients.forEach((client) => {
+    client.send(data);
+  });
+}
+
+function botCB(ws, dataString) {
+  //to be sent to the client
+  console.log("bot");
+  switch (dataString) {
+    case "usd":
+      break;
+    case "pir":
+      break;
+    case "btn":
+      break;
+    case "gps":
+      break;
+    case "snd":
+      break;
+    default:
+      console.log("Invalid Command");
+      break;
+  }
+}
+
+function clientCB(ws, dataString) {
+  //to be sent to the robot
+  console.log("Command: " + dataString);
+  switch (dataString) {
+    case "movew":
+      sendToAll("movew");
+      break;
+    case "moves":
+      sendToAll("moves");
+      break;
+    case "movea":
+      sendToAll("movea");
+      break;
+    case "moved":
+      sendToAll("moved");
+      break;
+    case "alarm":
+      sendToAll("alarm");
+      break;
+    case "radar":
+      console.log("Toggle Radar");
+      sendToAll("radar");
+      break;
+    default:
+      console.log("Invalid Commandxxx");
+      break;
+  }
+}
 
 wss.on("connection", (ws) => {
-  const id = setInterval(function() {
-    ws.send("Hello from the server")
-  }, 1000);
+  console.log("Connection Request...");
+  clients.push(ws);
 
-  console.log("Websocket connection open")
+  ws.on("message", (message) => {
+    //broadcast the message to all the clients
+    const dataString = message.toString();
+    switch (
+      dataString.slice(0, 2) //Checks if it is a bot msg or client msg
+    ) {
+      case "rb": //If it is a bot message
+        botCB(ws, dataString.slice(2));
+        break;
+      case "rc": //If it is a client message
+        clientCB(ws, dataString.slice(2));
+        break;
+      default:
+        break;
+    }
+  });
+});
 
+// wss.on("connection", (ws) => {
+//   console.log("Bot connection request...");
+//   bots.push(ws);
 
-  ws.on("close", () => {
-    console.log("Websocket connection closed")
-    clearInterval(id)
-  })
-})
+//   const id = setInterval(function () {
+//     ws.send("Hello from the server");
+//   }, 1000);
+
+//   console.log("Websocket connection open");
+
+//   ws.on("message", (message) => {
+//     console.log(message.toString());
+//   });
+
+//   ws.on("close", () => {
+//     console.log("Websocket connection closed");
+//     clearInterval(id);
+//   });
+// });
