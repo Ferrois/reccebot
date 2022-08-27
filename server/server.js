@@ -5,7 +5,6 @@ const PORT = 4000;
 const { v4 } = require("uuid");
 require("dotenv").config();
 const { authenticateKey } = require("./utils/auth");
-const { brotliCompressSync } = require("zlib");
 
 const server = require("http").createServer(app);
 
@@ -129,6 +128,7 @@ wss.on("connection", (ws) => {
   ws.on("message", (message) => {
     //broadcast the message to all the clients
     const dataString = message.toString();
+    if (dataString == "ping"){ws.send("pong")};
     switch (
       dataString.slice(0, 2) //Checks if it is a bot msg or client msg
     ) {
@@ -141,6 +141,11 @@ wss.on("connection", (ws) => {
       default:
         break;
     }
+  });
+
+  ws.on("close", () => {
+    console.log("Client Disconnected");
+    clients = clients.filter((client) => client !== ws);
   });
 });
 
