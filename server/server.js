@@ -155,7 +155,7 @@ wss.on("connection", (ws) => {
 
   const pingpong = setInterval(()=>{
       ws.ping();
-    } , 5000)
+    } , 6000)
 
   ws.on("pong", () => {
     ws.send("Pong received");
