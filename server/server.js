@@ -99,6 +99,7 @@ function clientCB(ws, dataString) {
     case "connections":
       console.log("Connections: " + clients.length);
       ws.send("Connections: " + clients.length);
+      break
     case "movew":
       sendToAll("movew");
       break;
