@@ -96,6 +96,9 @@ function clientCB(ws, dataString) {
   //to be sent to the robot
   console.log("Command: " + dataString);
   switch (dataString) {
+    case "connections":
+      console.log("Connections: " + clients.length);
+      ws.send("Connections: " + clients.length);
     case "movew":
       sendToAll("movew");
       break;
@@ -143,9 +146,22 @@ wss.on("connection", (ws) => {
     }
   });
 
+  ws.on("ping", () => {
+    
+  })
+
+  const pingpong = setInterval(()=>{
+      ws.ping();
+    } , 5000)
+
+  ws.on("pong", () => {
+    ws.send("Pong received");
+  });
+
   ws.on("close", () => {
     console.log("Client Disconnected");
     clients = clients.filter((client) => client !== ws);
+    clearInterval(pingpong);
   });
 });
 
