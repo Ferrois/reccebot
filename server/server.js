@@ -81,6 +81,7 @@ function botCB(ws, dataString) {
     case "pir":
       break;
     case "btn":
+      sendToAll("btn");
       break;
     case "gps":
       break;
