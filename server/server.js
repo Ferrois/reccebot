@@ -75,8 +75,9 @@ function sendToAll(data) {
 function botCB(ws, dataString) {
   //to be sent to the client
   console.log("bot");
-  switch (dataString) {
+  switch (dataString.slice(0,3)) {
     case "usd":
+
       break;
     case "pir":
       break;
@@ -86,6 +87,7 @@ function botCB(ws, dataString) {
     case "gps":
       break;
     case "snd":
+      sendToAll("snd1")
       break;
     default:
       console.log("Invalid Command");
@@ -101,10 +103,10 @@ function clientCB(ws, dataString) {
       console.log("Connections: " + clients.length);
       ws.send("Connections: " + clients.length);
       break
-    case "movew":
+    case "moves":
       sendToAll("movew");
       break;
-    case "moves":
+    case "movew":
       sendToAll("moves");
       break;
     case "movea":
