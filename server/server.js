@@ -141,6 +141,7 @@ wss.on("connection", (ws) => {
     ) {
       case "**":
         sendToAll(dataString.slice(2));
+        break
       case "rb": //If it is a bot message
         botCB(ws, dataString.slice(2));
         break;
