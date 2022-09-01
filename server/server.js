@@ -74,7 +74,7 @@ function sendToAll(data) {
 
 function botCB(ws, dataString) {
   //to be sent to the client
-  console.log("bot");
+  // console.log("bot");
   switch (dataString.slice(0,3)) {
     case "usd":
       sendToAll(dataString)

@@ -1,5 +1,7 @@
 {
-    "board": "arduino:avr:uno",
-    "programmer": "arduino:avrisp",
-    "sketch": "server\\ard.ino"
+    "board": "arduino:avr:mega",
+    "programmer": "arduino:avrispmkii",
+    "sketch": "bot\\bot.ino",
+    "configuration": "cpu=atmega2560",
+    "port": "COM6"
 }

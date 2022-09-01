@@ -7,12 +7,12 @@ const draw = (context, canvas, angle, dst) => {
   const angleRad = (angle * Math.PI) / 180;
   context.beginPath();
   context.moveTo(
-    canvas.width / 2 - Math.cos(angleRad) * 10 *canvas.width/100,
+    canvas.width / 2 + Math.cos(angleRad) * 10 *canvas.width/100,
     canvas.height - 10 - Math.sin(angleRad) * 10 * canvas.height/100
   );
   // for (let i = 0; i < dst; i++) {
   context.lineTo(
-    canvas.width / 2 - Math.cos(angleRad) * ReLU(parseInt(dst)+5 *canvas.width/100),
+    canvas.width / 2 + Math.cos(angleRad) * ReLU(parseInt(dst)+5 *canvas.width/100),
     canvas.height - 10 - Math.sin(angleRad) * ReLU(parseInt(dst)+5 *canvas.height/100)
   );
   // }

@@ -42,8 +42,8 @@ export default function logfilter(log) {
     if (log == "snd"){
         return " Activated Alarm"
     }
-    // if (log?.slice(0,3) == "usd"){
-    //     return " Radar msg"
-    // }
+    if (log?.slice(0,3) == "usd"){
+        return ""
+    }
     return "Received: " + log
 }

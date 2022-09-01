@@ -16,5 +16,17 @@
   "bugs": {
     "url": "https://github.com/Ferrois/reccebot/issues"
   },
-  "homepage": "https://github.com/Ferrois/reccebot#readme"
+  "homepage": "https://github.com/Ferrois/reccebot#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "react-helmet": "^6.1.0",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
+    "react-toastify": "^9.0.8"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8"
+  }
 }

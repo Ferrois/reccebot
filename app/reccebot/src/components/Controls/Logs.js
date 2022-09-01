@@ -19,6 +19,9 @@ export default function Logs({ messageHistory, handleSendMessage }) {
       }
       return;
     }
+    if (messageHistory[idx].slice(0,3) == "usd") {
+      return;
+    }
     setLogsArray([...logsArray, [date, logfilter(messageHistory[idx]), idx]]);
   }, [messageHistory?.length]);
   return (
