@@ -9,7 +9,7 @@ import Button from "../Uncategorised/Button";
 export default function KeyInput(props) {
   const [key, setKey] = useState("");
   return (
-    <form onSubmit={(e)=>props.handleKeyInput(e,key)}>
+    <form onSubmit={(e)=>props.handleKeyInput(e,key)} className="flex flex-col">
       <Input
         placeholder="Enter your key"
         onChange={(e)=>setKey(e.target.value)}

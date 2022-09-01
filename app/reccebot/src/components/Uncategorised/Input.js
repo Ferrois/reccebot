@@ -10,8 +10,8 @@ import React from "react";
 
 export default function Input(props) {
   return (
-    <div className={"bg-gray-100 ml-4 mr-4 mt-2 mb-2 rounded-lg shadow-md "+props.classnamediv}>
-      <input type="text" className="w-full rounded-lg text-xl p-2" {...props}/>
+    <div className={"bg-gray-100 mt-2 mb-2 rounded-lg shadow-md "+props.classnamediv}>
+      <input type="text" className="w-full rounded-lg text-xl p-2 text-black" {...props}/>
     </div>
   );
 }

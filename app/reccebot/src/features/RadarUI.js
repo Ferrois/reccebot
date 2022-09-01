@@ -1,29 +1,62 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../components/Uncategorised/Button";
+import ReLU from "../utils/ReLU";
 
-
-const draw = (context,angle,dst) => {
+const draw = (context, canvas, angle, dst) => {
+  if (parseInt(angle) <= 20 || parseInt(angle) >= 160) return initiateCanvas(context, canvas);
+  const angleRad = (angle * Math.PI) / 180;
   context.beginPath();
-  for (let i = 0; i < dst; i++) {
-    context.lineTo(100+Math.cos(angle) * i, 100+Math.sin(angle) * i * -1);
-  }
-  context.lineWidth = 2;
-  context.strokeStyle = "red";
+  context.moveTo(
+    canvas.width / 2 - Math.cos(angleRad) * 10 *canvas.width/100,
+    canvas.height - 10 - Math.sin(angleRad) * 10 * canvas.height/100
+  );
+  // for (let i = 0; i < dst; i++) {
+  context.lineTo(
+    canvas.width / 2 - Math.cos(angleRad) * ReLU(parseInt(dst)+5 *canvas.width/100),
+    canvas.height - 10 - Math.sin(angleRad) * ReLU(parseInt(dst)+5 *canvas.height/100)
+  );
+  // }
+  context.lineWidth = 3;
+  context.strokeStyle = dst < 45 ? "red" : "green";
+  // context.strokeStyle = "green";
   context.stroke();
   return;
 };
 
-export default function RadarUI() {
+const initiateCanvas = (context, canvas) => {
+  context.rect(0, 0, canvas.width, canvas.height);
+  context.fillStyle = "#111111";
+  context.fill();
+  context.beginPath();
+  context.moveTo(0, canvas.height - 10);
+  context.lineTo(canvas.width, canvas.height - 10);
+  context.lineWidth = 2;
+  context.strokeStyle = "green";
+  context.stroke();
+};
+
+export default function RadarUI({ messageHistory }) {
   const canvasRef = useRef(null);
-  let context;
-  
+  const containerRef = useRef(null);
+  const [context, setContext] = useState(null);
+  const [canvas, setCanvas] = useState(null);
+
   // const [points, setPoints] = useState();
-  
   useEffect(() => {
-    const canvas = canvasRef.current;
-    context = canvas.getContext("2d");
-    canvas.height = 150;
-    canvas.width = 200;
+    setCanvas(canvasRef.current);
+  }, []);
+  useEffect(() => {
+    // const canvas = canvasRef.current;
+    if (!canvas) return;
+    setContext(canvas.getContext("2d"));
+    if (!context) {
+      return;
+    }
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
     context.rect(0, 0, canvas.width, canvas.height);
     context.fillStyle = "#000000";
     context.fill();
@@ -36,15 +69,31 @@ export default function RadarUI() {
       animationFrameId = window.requestAnimationFrame(render);
     };
     render();
+    initiateCanvas(context, canvas);
 
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [containerRef.current?.offsetWidth, context]);
+  useEffect(() => {
+    if (!context) return;
+    if (!canvas) return;
+    const idx = messageHistory.length - 1;
+    if (messageHistory[idx].slice(0, 3) == "usd") {
+      const payload = messageHistory[idx].slice(3);
+      const [angle, distance] = payload.split(":");
+      draw(context, canvas, angle, distance);
+      return;
+    }
+  }, [messageHistory]);
   return (
     <>
-      <canvas ref={canvasRef}></canvas>
-      <Button onClick={()=>draw(context,Math.random() * Math.PI,90)}>test</Button>
+      <div className="w-full overflow-hidden" ref={containerRef}>
+        <canvas ref={canvasRef}></canvas>
+      </div>
+      {/* <Button onClick={() => draw(context, canvas, Math.random() * 180, 90)}>
+        .
+      </Button> */}
     </>
   );
 }
