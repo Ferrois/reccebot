@@ -77,7 +77,7 @@ function botCB(ws, dataString) {
   console.log("bot");
   switch (dataString.slice(0,3)) {
     case "usd":
-
+      sendToAll(dataString)
       break;
     case "pir":
       break;
