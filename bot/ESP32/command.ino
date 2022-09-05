@@ -11,8 +11,15 @@ void commands(String command){
     client.send("rbsnd");
   }
   if (firstThree == "usd"){
-    String payload = "rb";
+    String payload = "**";
     payload.concat(command);
+    client.send(payload);
+  }
+  if (firstThree == "boo"){
+    String payload = "**";
+    payload.concat(command);
+    payload.concat(":");
+    payload.concat(String(cameraOn));
     client.send(payload);
   }
   

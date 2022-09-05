@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Button from "../components/Uncategorised/Button";
+import { GlobalContext } from "../context/GlobalContext";
 import ReLU from "../utils/ReLU";
 
 const draw = (context, canvas, angle, dst) => {
@@ -36,6 +37,9 @@ const initiateCanvas = (context, canvas) => {
 };
 
 export default function RadarUI({ messageHistory }) {
+  const {boolData} = useContext(GlobalContext);
+  const [bool,setBool] = boolData;
+
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const [context, setContext] = useState(null);
@@ -88,6 +92,7 @@ export default function RadarUI({ messageHistory }) {
   }, [messageHistory]);
   return (
     <>
+    {bool.radar == "0" && <div className="text-red-500 text-xs fixed font-semibold bg-gray-775 rounded-sm p-1">Radar is OFF</div>}
       <div className="w-full overflow-hidden" ref={containerRef}>
         <canvas ref={canvasRef}></canvas>
       </div>

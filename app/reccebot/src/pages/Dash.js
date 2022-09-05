@@ -6,12 +6,13 @@ import Base from "../template/Base";
 import RadarUI from "./../features/RadarUI";
 import { useWebSocket } from "react-use-websocket/dist/lib/use-websocket";
 import Movepad from "../components/Controls/Movepad";
-import SendCommand from "../components/Controls/SendCommand";
 import GPSMap from "../components/Controls/GPSMap";
 import DashSection from "../components/Uncategorised/DashSection";
 import DashItem from "../components/Uncategorised/DashItem";
 import LogoutBtn from "../components/Auth/LogoutBtn";
 import Logs from "../components/Controls/Logs";
+import Camera from "../components/Controls/Camera";
+import Toggles from "../components/Controls/Toggles";
 
 const meta = {
   title: "Dashboard",
@@ -24,6 +25,7 @@ export default function Dashboard() {
   const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
 
   const handleSendMessage = (message) => {
+    // console.log(message)
     sendMessage(message);
   };
 
@@ -32,6 +34,10 @@ export default function Dashboard() {
     setMessageHistory([...messageHistory, lastMessage?.data]);
     return () => {};
   }, [lastMessage]);
+
+  useEffect(()=>{
+    handleSendMessage("**boolscheck")
+  },[])
 
   return (
     <Base config={meta} keyrequired>
@@ -44,7 +50,8 @@ export default function Dashboard() {
             </div>
             <DashItem heading="Camera">
               {/* <RadarUI /> */}
-              <div className="bg-black w-full aspect-video rounded-md"/>
+              {/* <div className="bg-black w-full aspect-video rounded-md"/> */}
+              <Camera messageHistory={messageHistory}/>
             </DashItem>
             <Button
               className="mt-2"
@@ -53,6 +60,7 @@ export default function Dashboard() {
               Connections
             </Button>
             <Movepad className="mt-2" handleSendMessage={handleSendMessage} />
+            <Toggles handleSendMessage={handleSendMessage}/>
           </CWrap>
         </DashSection>
         <DashSection>

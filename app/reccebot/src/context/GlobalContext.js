@@ -15,13 +15,15 @@ export default function GlobalProvider(props) {
   const [auth, setAuth] = useLocalStorage("auth", { acc: "" });
   const [gps,setGps] = useLocalStorage("gps",{lat:0,lng:0,lastSeen:0});
   const [options, setOptions] = useSessionStorage("options", {showAuth : true});
+  const [bool,setBool] = useSessionStorage("booldata",{cam:"0",radar:"0"});
 
+  const boolData = [bool,setBool];
   const optionData = [options,setOptions];
   const passport = [auth,setAuth];
   const gpsData = [gps,setGps];
   
   return (
-    <GlobalContext.Provider value={{passport,gpsData,optionData}}>
+    <GlobalContext.Provider value={{passport,gpsData,optionData, boolData}}>
       {props.children}
     </GlobalContext.Provider>
   );

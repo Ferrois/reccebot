@@ -1,6 +1,10 @@
+import { toast } from "react-toastify"
+
+
 export default function logfilter(log) {
     
     if (log == "btn"){
+        toast.error("Button has been pressed!!!");
         return " Button Pressed"
     }
     if (log == "pir"){
@@ -12,16 +16,16 @@ export default function logfilter(log) {
     if (log == "pir1"){
         return " PIR On"
     }
-    if (log == "usd0"){
+    if (log == "radoff"){
         return " Radar Off"
     }
-    if (log == "usd1"){
+    if (log == "radon"){
         return " Radar On"
     }
-    if (log == "cam0"){
+    if (log == "camoff"){
         return " CAM Off"
     }
-    if (log == "cam1"){
+    if (log == "camon"){
         return " CAM On"
     }
     if (log == "movew"){
@@ -37,7 +41,7 @@ export default function logfilter(log) {
         return " Turn Right"
     }
     if (log == "snd1"){
-        return " Sound Detected"
+        return " Voice Detected"
     }
     if (log == "snd"){
         return " Activated Alarm"

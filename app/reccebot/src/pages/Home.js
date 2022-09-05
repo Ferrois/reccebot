@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <Base config={meta} keyrequired={false}>
       <CWrap vertical>
-        <img src={Logo} className="pb-5"></img>
+        <img src={Logo} className="pb-5 shadow-md"></img>
         <div className="text-xl text-white">
           Reccebot (2022 NRC)
         </div>

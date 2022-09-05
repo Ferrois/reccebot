@@ -1,7 +1,7 @@
 const unsigned int MAX_MESSAGE_LENGTH = 25;
 
 void motor_turn();
-
+void sendbools();
 
 void commands(String command){
 //  Serial.println(strcmp(command,command));
@@ -14,7 +14,15 @@ void commands(String command){
     motor_turn(2,10);
   } else if (command == "moved\r"){
     motor_turn(1,10);
-  }
+  } else if (command == "radoff\r"){
+    radarOn = false;
+    sendbools();
+  } else if (command == "radon\r"){
+    radarOn = true;
+    sendbools();
+  } else if (command == "bol\r"){
+    sendbools();
+  };
   
   return;
 };
