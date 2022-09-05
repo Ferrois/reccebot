@@ -139,7 +139,7 @@ wss.on("connection", (ws) => {
       // var urlObject = URL.createObjectURL(message.data);
       // view.src = urlObject;
       console.log("Blob");
-      client.send(message.toString("base64"));
+      sendToAll(message.toString("base64"));
       // const b64 = message.toString("base64");
       // NOTE:
       // Because 'rest' appears to be a buffer, you might not
