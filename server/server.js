@@ -136,7 +136,7 @@ wss.on("connection", (ws) => {
 
   ws.on("message", (message) => {
     //broadcast the message to all the clients
-    console.log(message)
+    console.log(message.toString());
     if (message.data instanceof Blob) {
       // var urlObject = URL.createObjectURL(message.data);
       // view.src = urlObject;
