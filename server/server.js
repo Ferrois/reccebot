@@ -5,6 +5,8 @@ const PORT = 4000;
 const { v4 } = require("uuid");
 require("dotenv").config();
 const { authenticateKey } = require("./utils/auth");
+const { Blob } = require("buffer");
+
 
 const server = require("http").createServer(app);
 
