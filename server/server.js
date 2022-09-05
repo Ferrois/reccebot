@@ -7,7 +7,6 @@ require("dotenv").config();
 const { authenticateKey } = require("./utils/auth");
 const { Blob } = require("buffer");
 
-
 const server = require("http").createServer(app);
 
 //Helper function
@@ -77,9 +76,9 @@ function sendToAll(data) {
 function botCB(ws, dataString) {
   //to be sent to the client
   // console.log("bot");
-  switch (dataString.slice(0,3)) {
+  switch (dataString.slice(0, 3)) {
     case "usd":
-      sendToAll(dataString)
+      sendToAll(dataString);
       break;
     case "pir":
       break;
@@ -89,7 +88,7 @@ function botCB(ws, dataString) {
     case "gps":
       break;
     case "snd":
-      sendToAll("snd1")
+      sendToAll("snd1");
       break;
     default:
       console.log("Invalid Command");
@@ -104,7 +103,7 @@ function clientCB(ws, dataString) {
     case "connections":
       console.log("Connections: " + clients.length);
       ws.send("Connections: " + clients.length);
-      break
+      break;
     case "moves":
       sendToAll("movew");
       break;
@@ -136,21 +135,31 @@ wss.on("connection", (ws) => {
 
   ws.on("message", (message) => {
     //broadcast the message to all the clients
-    console.log(message.toString("base64url"));
-    if (message.data instanceof Blob) {
+    console.log(message.data.length);
+    if (message.data.length > 100) {
       // var urlObject = URL.createObjectURL(message.data);
       // view.src = urlObject;
       console.log("Blob");
-      sendToAll(message.data);
+      client.send(message.data);
+      // const b64 = message.toString("base64");
+      // NOTE:
+      // Because 'rest' appears to be a buffer, you might not
+      // need to do `Buffer.from(...)`,you may have to do something like:
+      /** const b64 = rest.toString('base64'); **/
+      // const mimeType = "image/png"; // e.g., image/png
+
+      // res.send(`<img src="data:${mimeType};base64,${b64}" />`);
     }
     const dataString = message.toString();
-    if (dataString == "ping"){ws.send("pong")};
+    if (dataString == "ping") {
+      ws.send("pong");
+    }
     switch (
       dataString.slice(0, 2) //Checks if it is a bot msg or client msg
     ) {
       case "**":
         sendToAll(dataString.slice(2));
-        break
+        break;
       case "rb": //If it is a bot message
         botCB(ws, dataString.slice(2));
         break;
@@ -162,13 +171,11 @@ wss.on("connection", (ws) => {
     }
   });
 
-  ws.on("ping", () => {
-    
-  })
+  ws.on("ping", () => {});
 
-  const pingpong = setInterval(()=>{
-      ws.ping();
-    } , 6000)
+  const pingpong = setInterval(() => {
+    ws.ping();
+  }, 6000);
 
   ws.on("pong", () => {
     ws.send("Pong received");
