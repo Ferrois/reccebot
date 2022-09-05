@@ -134,6 +134,12 @@ wss.on("connection", (ws) => {
 
   ws.on("message", (message) => {
     //broadcast the message to all the clients
+    if (message.data instanceof Blob) {
+      // var urlObject = URL.createObjectURL(message.data);
+      // view.src = urlObject;
+      console.log("Blob");
+      sendToAll(message.data);
+    }
     const dataString = message.toString();
     if (dataString == "ping"){ws.send("pong")};
     switch (
