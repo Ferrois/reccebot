@@ -135,12 +135,11 @@ wss.on("connection", (ws) => {
 
   ws.on("message", (message) => {
     //broadcast the message to all the clients
-    console.log(message.data.length);
-    if (message.data.length > 100) {
+    if (message.toString("base64").length > 100) {
       // var urlObject = URL.createObjectURL(message.data);
       // view.src = urlObject;
       console.log("Blob");
-      client.send(message.data);
+      client.send(message.toString("base64"));
       // const b64 = message.toString("base64");
       // NOTE:
       // Because 'rest' appears to be a buffer, you might not
