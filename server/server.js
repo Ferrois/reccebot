@@ -67,6 +67,8 @@ var clients = [];
 // rcgps(lat,long)
 // rcsnd
 
+var aiIsOn = false;
+
 function sendToAll(data) {
   clients.forEach((client) => {
     client.send(data);
@@ -81,6 +83,7 @@ function botCB(ws, dataString) {
       sendToAll(dataString);
       break;
     case "pir":
+      sendToAll("pir");
       break;
     case "btn":
       sendToAll("btn");
@@ -123,6 +126,16 @@ function clientCB(ws, dataString) {
       console.log("Toggle Radar");
       sendToAll("radar");
       break;
+    case "ai0":
+      if (aiIsOn == false) return
+      aiIsOn = false;
+      sendToAll("aioff")
+      break
+    case "ai1":
+      if (aiIsOn == true) return
+      aiIsOn = true;
+      sendToAll("aion");
+      break
     default:
       console.log("Invalid Commandxxx");
       break;
