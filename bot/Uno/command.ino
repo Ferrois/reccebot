@@ -1,15 +1,15 @@
-const unsigned int MAX_MESSAGE_LENGTH = 25;
+const unsigned int MAX_MESSAGE_LENGTH = 50;
 
 void motor_turn();
 void sendbools();
-
+void alarm();
 void commands(String command){
 //  Serial.println(strcmp(command,command));
   Serial.println(command.length());
   if (command == "movew\r"){
-    motor_go(140,1);
+    motor_go(180,1);
   } else if (command == "moves\r"){
-    motor_go(40,1);
+    motor_go(0,1);
   } else if (command == "movea\r"){
     motor_turn(2,10);
   } else if (command == "moved\r"){
@@ -22,7 +22,9 @@ void commands(String command){
     sendbools();
   } else if (command == "bol\r"){
     sendbools();
-  };
+  } else if (command == "alarm\r"){
+    alarm();
+  }
   
   return;
 };

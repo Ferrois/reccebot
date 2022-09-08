@@ -68,6 +68,19 @@ var clients = [];
 // rcsnd
 
 var aiIsOn = false;
+var motionDetected = false;
+var buttonPressed = false;
+
+function aiFunction(){
+  if (aiIsOn == false) return
+  if (motionDetected){
+
+  }
+  if (buttonPressed){
+    
+  }
+  
+}
 
 function sendToAll(data) {
   clients.forEach((client) => {

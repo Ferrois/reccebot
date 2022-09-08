@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import Button from "../Uncategorised/Button";
-import {AiOutlineCamera} from "react-icons/ai";
+import {AiFillSound, AiOutlineCamera} from "react-icons/ai";
 import {GiRadarSweep} from "react-icons/gi";
 
 export default function Toggles({handleSendMessage}) {
@@ -38,6 +38,12 @@ export default function Toggles({handleSendMessage}) {
         onClick={() => handleToggle("radar")}
       >
         <GiRadarSweep/>
+      </Button>
+      <Button
+        className={`text-yellow-300`}
+        onClick={() => handleToggle("rcalarm")}
+      >
+        <AiFillSound/>
       </Button>
     </div>
   );

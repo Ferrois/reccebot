@@ -8,6 +8,7 @@ export default function logfilter(log) {
         return " Button Pressed"
     }
     if (log == "pir"){
+        toast.error("Motion has been detected.");
         return " Motion Detected"
     }
     if (log == "pir0"){
@@ -48,6 +49,12 @@ export default function logfilter(log) {
     }
     if (log?.slice(0,3) == "usd"){
         return ""
+    }
+    if (log == "aion"){
+        return " AI Mode Activated"
+    }
+    if (log == "aioff"){
+        return " AI Mode Deactivated"
     }
     return "Received: " + log
 }

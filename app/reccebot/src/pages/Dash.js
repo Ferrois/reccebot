@@ -13,6 +13,7 @@ import LogoutBtn from "../components/Auth/LogoutBtn";
 import Logs from "../components/Controls/Logs";
 import Camera from "../components/Controls/Camera";
 import Toggles from "../components/Controls/Toggles";
+import AI from "../components/Controls/AI";
 
 const meta = {
   title: "Dashboard",
@@ -35,9 +36,9 @@ export default function Dashboard() {
     return () => {};
   }, [lastMessage]);
 
-  useEffect(()=>{
-    handleSendMessage("**boolscheck")
-  },[])
+  useEffect(() => {
+    handleSendMessage("**boolscheck");
+  }, []);
 
   return (
     <Base config={meta} keyrequired>
@@ -51,7 +52,7 @@ export default function Dashboard() {
             <DashItem heading="Camera">
               {/* <RadarUI /> */}
               {/* <div className="bg-black w-full aspect-video rounded-md"/> */}
-              <Camera messageHistory={messageHistory}/>
+              <Camera messageHistory={messageHistory} />
             </DashItem>
             <Button
               className="mt-2"
@@ -60,21 +61,27 @@ export default function Dashboard() {
               Connections
             </Button>
             <Movepad className="mt-2" handleSendMessage={handleSendMessage} />
-            <Toggles handleSendMessage={handleSendMessage}/>
+            <div className="flex">
+              <Toggles handleSendMessage={handleSendMessage} />
+              <AI handleSendMessage={handleSendMessage}/>
+            </div>
           </CWrap>
         </DashSection>
         <DashSection>
           <CWrap>
             <div className="grid md:grid-cols-2 w-full sm:grid-cols-1 ">
               <DashItem heading="Location">
-                <GPSMap/>
+                <GPSMap />
               </DashItem>
               <DashItem heading="Radar">
-                <RadarUI  messageHistory={messageHistory}/>
+                <RadarUI messageHistory={messageHistory} />
               </DashItem>
             </div>
-            <Logs messageHistory={messageHistory} handleSendMessage={handleSendMessage}/>
-            
+            <Logs
+              messageHistory={messageHistory}
+              handleSendMessage={handleSendMessage}
+            />
+
             {/* <div className="break-words w-4/5">
               {messageHistory && JSON.stringify(messageHistory)}
             </div> */}

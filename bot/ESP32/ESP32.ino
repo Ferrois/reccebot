@@ -129,6 +129,9 @@ void onMessageCallback(WebsocketsMessage message)
     else if (message.data() == "boolscheck"){
       Serial.println("bol");
     }
+    else if (message.data() == "alarm"){
+      Serial.println("alarm");
+    }
 };
 void setupWS(){
   

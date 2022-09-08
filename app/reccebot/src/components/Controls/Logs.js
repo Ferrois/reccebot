@@ -10,8 +10,9 @@ import bellSfx from "../../assets/bell.mp3";
 import { GlobalContext } from "../../context/GlobalContext";
 
 export default function Logs({ messageHistory, handleSendMessage }) {
-  const {boolData} = useContext(GlobalContext);
+  const {boolData,aiData} = useContext(GlobalContext);
   const [bool,setBool] = boolData;
+  const [ai, setAi] = aiData;
   const [play] = useSound(bellSfx);
   const [logsArray, setLogsArray] = useState([[new Date().toLocaleString(), "Client Initialisation",0]]);
   const [firstRender, setFirstRender] = useState(true);
@@ -34,6 +35,14 @@ export default function Logs({ messageHistory, handleSendMessage }) {
     }
     if (messageHistory[idx]?.slice(0,3) == "img") {
       return;
+    }
+    if (messageHistory[idx] == "aion") {
+      toast.success("AI Mode Activated!");
+      setAi("1");
+    }
+    if (messageHistory[idx] == "aioff") {
+      toast.error("AI Mode Deactivated!");
+      setAi("0");
     }
     if (messageHistory[idx]?.slice(0,3) == "boo") {
       const booldata =messageHistory[idx]?.slice(3).split(":")

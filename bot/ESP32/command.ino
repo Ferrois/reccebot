@@ -10,6 +10,9 @@ void commands(String command){
   if (command == "ardsnd\r"){
     client.send("rbsnd");
   }
+  if (command == "ardmot\r"){
+    client.send("rbpir");
+  }
   if (firstThree == "usd"){
     String payload = "**";
     payload.concat(command);
