@@ -71,6 +71,7 @@ var aiIsOn = false;
 var motionDetected = false;
 var buttonPressed = false;
 
+
 function aiFunction(){
   if (aiIsOn == false) return
   if (motionDetected){
