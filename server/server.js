@@ -122,10 +122,10 @@ function clientCB(ws, dataString) {
       ws.send("Connections: " + clients.length);
       break;
     case "moves":
-      sendToAll("movew");
+      sendToAll("moves");
       break;
     case "movew":
-      sendToAll("moves");
+      sendToAll("movew");
       break;
     case "movea":
       sendToAll("movea");
